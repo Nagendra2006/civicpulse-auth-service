@@ -1,1 +1,0 @@
-# civicpulse-auth-service
