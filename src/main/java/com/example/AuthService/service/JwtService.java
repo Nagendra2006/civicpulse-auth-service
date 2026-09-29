@@ -2,9 +2,9 @@ package com.example.AuthService.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-// import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.example.AuthService.entity.User;
@@ -17,12 +17,14 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    private final String SECRET = "your_super_secret_key_12345678901234567890";
+    @Value("${jwt.secret}")
+    private String secret;
 
     private Key getSignKey() {
-        return Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
+        return Keys.hmacShaKeyFor(
+            secret.getBytes(StandardCharsets.UTF_8)
+        );
     }
-
     // 🔥 UPDATED TOKEN GENERATION
     public String generateToken(User user) {
 
